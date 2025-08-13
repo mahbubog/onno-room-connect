@@ -154,4 +154,70 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Responsive font scaling */
+  html {
+    font-size: 14px;
+  }
+
+  @media (min-width: 640px) {
+    html {
+      font-size: 15px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    html {
+      font-size: 16px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    html {
+      font-size: 17px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    html {
+      font-size: 18px;
+    }
+  }
+}
+
+@layer components {
+  /* Meeting block styles */
+  .meeting-block {
+    @apply rounded-sm text-white font-medium transition-all duration-200 hover:shadow-lg;
+    font-size: 0.7rem;
+    line-height: 1.2;
+  }
+
+  .meeting-block-team-ux {
+    background: hsl(142 76% 46%);
+  }
+
+  .meeting-block-team-mvp {
+    background: hsl(38 92% 50%);
+  }
+
+  .meeting-block-team-marketing {
+    background: hsl(271 81% 56%);
+  }
+
+  .meeting-block-team-other {
+    background: hsl(198 93% 60%);
+  }
+
+  @media (min-width: 640px) {
+    .meeting-block {
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .meeting-block {
+      font-size: 0.8rem;
+    }
+  }
 }

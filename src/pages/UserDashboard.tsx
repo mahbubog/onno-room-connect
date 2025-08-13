@@ -100,58 +100,59 @@ const UserDashboard = () => {
     <div className="min-h-screen bg-background">
       {/* Top Bar */}
       <header className="border-b bg-card shadow-card sticky top-0 z-50">
-        <div className="flex items-center justify-between px-6 py-4">
-          <div className="flex items-center space-x-4">
+        <div className="flex items-center justify-between px-3 sm:px-4 lg:px-6 py-3 sm:py-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             <Button
               variant="outline"
               size="sm"
               onClick={() => setSelectedDate(new Date())}
-              className="flex items-center space-x-2"
+              className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm"
             >
-              <Calendar className="h-4 w-4" />
-              <span>Today</span>
+              <Calendar className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline">Today</span>
+              <span className="sm:hidden">T</span>
             </Button>
-            <div className="text-lg font-semibold text-foreground">
+            <div className="text-sm sm:text-base lg:text-lg font-semibold text-foreground">
               {selectedDate.toLocaleDateString("en-US", { 
-                weekday: "long", 
+                weekday: window.innerWidth < 640 ? "short" : "long", 
                 year: "numeric", 
-                month: "long", 
+                month: window.innerWidth < 640 ? "short" : "long", 
                 day: "numeric" 
               })}
             </div>
           </div>
 
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
-              <Building2 className="h-5 w-5 text-primary" />
-              <span className="font-semibold text-foreground">OnnoRokom Group</span>
+          <div className="flex items-center space-x-2 sm:space-x-4">
+            <div className="flex items-center space-x-1 sm:space-x-2">
+              <Building2 className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+              <span className="font-semibold text-foreground text-xs sm:text-sm lg:text-base hidden sm:inline">OnnoRokom Group</span>
             </div>
-            <Button variant="ghost" size="icon">
-              <HelpCircle className="h-4 w-4" />
+            <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-10 sm:w-10">
+              <HelpCircle className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
-            <Button variant="ghost" size="icon">
-              <Share className="h-4 w-4" />
+            <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-10 sm:w-10">
+              <Share className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
-            <Button variant="ghost" size="icon">
-              <User className="h-4 w-4" />
+            <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-10 sm:w-10">
+              <User className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
           </div>
         </div>
       </header>
 
-      <div className="flex">
+      <div className="flex flex-col lg:flex-row">
         {/* Left Sidebar */}
-        <aside className="w-80 border-r bg-card h-[calc(100vh-73px)] overflow-y-auto">
-          <div className="p-6 space-y-6">
+        <aside className="w-full lg:w-80 border-b lg:border-r lg:border-b-0 bg-card h-auto lg:h-[calc(100vh-73px)] overflow-y-auto">
+          <div className="p-3 sm:p-4 lg:p-6 space-y-4 lg:space-y-6">
             {/* Mini Calendar */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-medium">Calendar</CardTitle>
+            <Card className="lg:block hidden">
+              <CardHeader className="pb-2 sm:pb-3">
+                <CardTitle className="text-xs sm:text-sm font-medium">Calendar</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-7 gap-1 text-center text-xs">
                   {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map(day => (
-                    <div key={day} className="p-2 font-medium text-muted-foreground">
+                    <div key={day} className="p-1 sm:p-2 font-medium text-muted-foreground">
                       {day}
                     </div>
                   ))}
@@ -159,7 +160,7 @@ const UserDashboard = () => {
                   {Array.from({ length: 35 }, (_, i) => (
                     <button
                       key={i}
-                      className={`p-2 rounded-md hover:bg-accent transition-colors ${
+                      className={`p-1 sm:p-2 rounded-md hover:bg-accent transition-colors text-xs ${
                         i === 15 ? "bg-primary text-primary-foreground" : ""
                       }`}
                     >
@@ -172,39 +173,56 @@ const UserDashboard = () => {
 
             {/* Layout Filter */}
             <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-medium">View</CardTitle>
+              <CardHeader className="pb-2 sm:pb-3">
+                <CardTitle className="text-xs sm:text-sm font-medium">Layout View</CardTitle>
               </CardHeader>
               <CardContent>
                 <Select value={viewType} onValueChange={setViewType}>
-                  <SelectTrigger>
+                  <SelectTrigger className="text-xs sm:text-sm">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="daily">Daily</SelectItem>
-                    <SelectItem value="weekly">Weekly</SelectItem>
+                    <SelectItem value="daily">Day</SelectItem>
+                    <SelectItem value="weekly">Week</SelectItem>
                   </SelectContent>
                 </Select>
               </CardContent>
             </Card>
 
-            {/* Quick Stats */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-medium">Today's Overview</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Total Bookings</span>
-                  <Badge variant="secondary">3</Badge>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Available Rooms</span>
-                  <Badge className="bg-available text-available-foreground">4</Badge>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Pending Approval</span>
-                  <Badge className="bg-pending text-pending-foreground">1</Badge>
+            {/* Date Navigation for Mobile */}
+            <Card className="lg:hidden">
+              <CardContent className="p-3">
+                <div className="flex items-center justify-between">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      const newDate = new Date(selectedDate);
+                      newDate.setDate(newDate.getDate() - (viewType === "weekly" ? 7 : 1));
+                      setSelectedDate(newDate);
+                    }}
+                    className="text-xs"
+                  >
+                    ←
+                  </Button>
+                  <span className="text-xs font-medium">
+                    {viewType === "weekly" 
+                      ? `${weekDates[0].toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${weekDates[6].toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
+                      : selectedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                    }
+                  </span>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      const newDate = new Date(selectedDate);
+                      newDate.setDate(newDate.getDate() + (viewType === "weekly" ? 7 : 1));
+                      setSelectedDate(newDate);
+                    }}
+                    className="text-xs"
+                  >
+                    →
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -212,55 +230,99 @@ const UserDashboard = () => {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-3 sm:p-4 lg:p-6">
           {viewType === "daily" && (
             <Card className="shadow-card">
-              <CardHeader>
-                <div className="flex items-center justify-between">
+              <CardHeader className="pb-3 sm:pb-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                   <div>
-                    <CardTitle>Daily Schedule</CardTitle>
-                    <CardDescription>
-                      Click on available slots to book a meeting
+                    <CardTitle className="text-base sm:text-lg">Daily Schedule</CardTitle>
+                    <CardDescription className="text-xs sm:text-sm">
+                      {selectedDate.toLocaleDateString("en-US", { 
+                        weekday: "long", 
+                        year: "numeric", 
+                        month: "long", 
+                        day: "numeric" 
+                      })}
                     </CardDescription>
                   </div>
-                  <Button variant="hero" size="lg" className="flex items-center space-x-2">
-                    <Plus className="h-4 w-4" />
-                    <span>New Booking</span>
+                  <Button variant="default" size="sm" className="flex items-center space-x-2 text-xs sm:text-sm">
+                    <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
+                    <span className="hidden sm:inline">New Booking</span>
+                    <span className="sm:hidden">Add</span>
                   </Button>
                 </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-0">
                 <div className="overflow-x-auto">
-                  <div className="grid" style={{ gridTemplateColumns: `150px repeat(${rooms.length}, 1fr)`, minWidth: '800px' }}>
-                    {/* Header */}
-                    <div className="p-3 font-medium border-b border-r">Time</div>
-                    {rooms.map(room => (
-                      <div key={room.id} className="p-3 font-medium border-b text-center">
-                        <div className="font-semibold">{room.name}</div>
-                        <div className="text-xs text-muted-foreground">Capacity: {room.capacity}</div>
-                      </div>
-                    ))}
-
-                    {/* Time slots */}
-                    {timeSlots.map(timeSlot => (
-                      <>
-                        <div key={`time-${timeSlot}`} className="p-3 border-b border-r text-sm font-medium flex items-center">
-                          <Clock className="h-3 w-3 mr-2" />
-                          {timeSlot}
+                  <div className="min-w-[800px]">
+                    {/* Time Header */}
+                    <div className="grid grid-cols-8 gap-px bg-border">
+                      <div className="bg-card"></div>
+                      {["9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM"].map((time, index) => (
+                        <div key={index} className="bg-card p-2 sm:p-3 text-center">
+                          <div className="font-medium text-xs sm:text-sm">{time}</div>
                         </div>
-                        {rooms.map(room => {
-                          const cellData = getCellStatus(room.id, timeSlot);
-                          return (
-                            <button
-                              key={`${room.id}-${timeSlot}`}
-                              className={`p-3 border-b text-xs transition-all duration-200 hover:scale-105 ${getStatusColor(cellData.status)}`}
-                            >
-                              {cellData.title || "Available"}
-                            </button>
-                          );
-                        })}
-                      </>
-                    ))}
+                      ))}
+                    </div>
+
+                    {/* Room Rows */}
+                    <div className="grid grid-cols-8 gap-px bg-border">
+                      {rooms.map((room) => (
+                        <>
+                          {/* Room Name */}
+                          <div key={`room-${room.id}`} className="bg-card p-2 sm:p-3 flex items-center">
+                            <div className="flex items-center space-x-2">
+                              <div className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full ${
+                                room.id === 1 ? 'bg-green-500' :
+                                room.id === 2 ? 'bg-orange-500' :
+                                room.id === 3 ? 'bg-purple-500' :
+                                room.id === 4 ? 'bg-blue-500' :
+                                room.id === 5 ? 'bg-teal-500' :
+                                room.id === 6 ? 'bg-orange-600' :
+                                'bg-green-600'
+                              }`}></div>
+                              <span className="font-medium text-xs sm:text-sm">{room.name}</span>
+                            </div>
+                          </div>
+                          
+                          {/* Time Slots */}
+                          {Array.from({ length: 7 }, (_, timeIndex) => {
+                            const hasBooking = room.id <= 3 && timeIndex < 3;
+                            return (
+                              <div key={`${room.id}-${timeIndex}`} className="bg-card p-1 sm:p-2 min-h-[60px] sm:min-h-[80px] relative">
+                                {hasBooking ? (
+                                  <div className={`meeting-block p-2 h-full flex flex-col justify-center ${
+                                    room.id === 1 ? 'meeting-block-team-ux' :
+                                    room.id === 2 ? 'meeting-block-team-mvp' :
+                                    'meeting-block-team-marketing'
+                                  }`}>
+                                    <div className="font-medium text-xs">Team Work: {
+                                      room.id === 1 ? 'UX/UI' :
+                                      room.id === 2 ? 'MVP' :
+                                      'UX/UI'
+                                    }</div>
+                                    <div className="text-xs opacity-90">{
+                                      timeIndex === 0 ? '9:00 AM - 10:00 AM' :
+                                      timeIndex === 1 ? '9:00 AM - 10:00 AM' :
+                                      '10:00 AM - 11:00 AM'
+                                    }</div>
+                                  </div>
+                                ) : (
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="w-full h-full flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-accent/50"
+                                  >
+                                    <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
+                                  </Button>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -269,15 +331,15 @@ const UserDashboard = () => {
 
           {viewType === "weekly" && (
             <Card className="shadow-card">
-              <CardHeader>
-                <div className="flex items-center justify-between">
+              <CardHeader className="pb-3 sm:pb-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                   <div>
-                    <CardTitle>Weekly Schedule</CardTitle>
-                    <CardDescription>
+                    <CardTitle className="text-base sm:text-lg">Weekly Schedule</CardTitle>
+                    <CardDescription className="text-xs sm:text-sm">
                       {weekDates[0].toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} - {weekDates[6].toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </CardDescription>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 lg:block hidden">
                     <Button
                       variant="outline"
                       size="sm"
@@ -286,6 +348,7 @@ const UserDashboard = () => {
                         newDate.setDate(newDate.getDate() - 7);
                         setSelectedDate(newDate);
                       }}
+                      className="text-xs sm:text-sm"
                     >
                       ←
                     </Button>
@@ -297,24 +360,25 @@ const UserDashboard = () => {
                         newDate.setDate(newDate.getDate() + 7);
                         setSelectedDate(newDate);
                       }}
+                      className="text-xs sm:text-sm"
                     >
                       →
                     </Button>
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-0">
                 <div className="overflow-x-auto">
-                  <div className="min-w-[1000px]">
+                  <div className="min-w-[800px]">
                     {/* Header with days */}
                     <div className="grid grid-cols-8 gap-px bg-border">
-                      <div className="bg-card p-3 font-medium"></div>
+                      <div className="bg-card p-2 sm:p-3 font-medium"></div>
                       {weekDates.map((date, index) => (
-                        <div key={index} className="bg-card p-3 text-center">
-                          <div className="font-medium text-sm">
+                        <div key={index} className="bg-card p-2 sm:p-3 text-center">
+                          <div className="font-medium text-xs sm:text-sm">
                             {date.toLocaleDateString('en-US', { weekday: 'short' })}
                           </div>
-                          <div className="text-lg font-bold">
+                          <div className="text-sm sm:text-lg font-bold">
                             {date.getDate()}
                           </div>
                         </div>
@@ -326,9 +390,9 @@ const UserDashboard = () => {
                       {rooms.map((room) => (
                         <>
                           {/* Room name column */}
-                          <div key={`room-${room.id}`} className="bg-card p-4 flex items-center">
-                            <div className="flex items-center space-x-2">
-                              <div className={`w-3 h-3 rounded-full ${
+                          <div key={`room-${room.id}`} className="bg-card p-2 sm:p-3 lg:p-4 flex items-center">
+                            <div className="flex items-center space-x-1 sm:space-x-2">
+                              <div className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full ${
                                 room.id === 1 ? 'bg-green-500' :
                                 room.id === 2 ? 'bg-orange-500' :
                                 room.id === 3 ? 'bg-purple-500' :
@@ -337,7 +401,7 @@ const UserDashboard = () => {
                                 room.id === 6 ? 'bg-orange-600' :
                                 'bg-green-600'
                               }`}></div>
-                              <span className="font-medium text-sm">{room.name}</span>
+                              <span className="font-medium text-xs sm:text-sm">{room.name}</span>
                             </div>
                           </div>
                           
@@ -348,18 +412,21 @@ const UserDashboard = () => {
                             );
                             
                             return (
-                              <div key={`${room.id}-${dayIndex}`} className="bg-card p-2 min-h-[80px] relative">
+                              <div key={`${room.id}-${dayIndex}`} className="bg-card p-1 sm:p-2 min-h-[60px] sm:min-h-[80px] relative">
                                 {dayBookings.length > 0 ? (
                                   <div className="space-y-1">
                                     {dayBookings.map((booking, bookingIndex) => (
                                       <div
                                         key={bookingIndex}
-                                        className={`${booking.color} text-white text-xs p-2 rounded shadow-sm ${
-                                          booking.offset ? 'mt-1' : ''
-                                        }`}
+                                        className={`meeting-block p-1 sm:p-2 rounded shadow-sm ${
+                                          booking.team.includes('UX/UI') ? 'meeting-block-team-ux' :
+                                          booking.team.includes('MVP') ? 'meeting-block-team-mvp' :
+                                          booking.team.includes('Marketing') ? 'meeting-block-team-marketing' :
+                                          'meeting-block-team-other'
+                                        } ${booking.offset ? 'mt-1' : ''}`}
                                       >
                                         <div className="font-medium">{booking.team}</div>
-                                        <div className="text-xs opacity-90">{booking.time}</div>
+                                        <div className="opacity-90">{booking.time}</div>
                                       </div>
                                     ))}
                                   </div>
@@ -369,7 +436,7 @@ const UserDashboard = () => {
                                     size="sm"
                                     className="w-full h-full flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-accent/50"
                                   >
-                                    <Plus className="h-4 w-4" />
+                                    <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
                                   </Button>
                                 )}
                               </div>
