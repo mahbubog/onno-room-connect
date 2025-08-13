@@ -83,17 +83,9 @@ const Login = () => {
               </div>
 
               <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="password" className="text-sm font-medium text-foreground">
-                    Password
-                  </Label>
-                  <Link
-                    to="/forgot-password"
-                    className="text-sm text-primary hover:text-primary-hover font-medium"
-                  >
-                    Forgot Password?
-                  </Link>
-                </div>
+                <Label htmlFor="password" className="text-sm font-medium text-foreground">
+                  Password
+                </Label>
                 <Input
                   id="password"
                   type="password"
@@ -105,15 +97,23 @@ const Login = () => {
                 />
               </div>
 
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="remember"
-                  checked={rememberMe}
-                  onCheckedChange={(checked) => setRememberMe(checked as boolean)}
-                />
-                <Label htmlFor="remember" className="text-sm text-muted-foreground">
-                  Remember Password
-                </Label>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="remember"
+                    checked={rememberMe}
+                    onCheckedChange={(checked) => setRememberMe(checked as boolean)}
+                  />
+                  <Label htmlFor="remember" className="text-sm text-muted-foreground">
+                    Remember Password
+                  </Label>
+                </div>
+                <Link
+                  to="/forgot-password"
+                  className="text-sm text-primary hover:text-primary-hover font-medium"
+                >
+                  Forgot Password?
+                </Link>
               </div>
 
               <Button
