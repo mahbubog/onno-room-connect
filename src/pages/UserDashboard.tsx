@@ -290,7 +290,7 @@ const UserDashboard = () => {
                           {Array.from({ length: 7 }, (_, timeIndex) => {
                             const hasBooking = room.id <= 3 && timeIndex < 3;
                             return (
-                              <div key={`${room.id}-${timeIndex}`} className="bg-card p-1 sm:p-2 min-h-[60px] sm:min-h-[80px] relative">
+                              <div key={`${room.id}-${timeIndex}`} className="bg-card p-1 min-h-[50px] sm:min-h-[60px] lg:min-h-[80px] relative">
                                 {hasBooking ? (
                                   <div className={`meeting-block h-full ${
                                     room.id === 1 ? 'meeting-block-team-ux' :
@@ -414,9 +414,9 @@ const UserDashboard = () => {
                             );
                             
                             return (
-                              <div key={`${room.id}-${dayIndex}`} className="bg-card p-1 sm:p-2 min-h-[60px] sm:min-h-[80px] relative">
+                              <div key={`${room.id}-${dayIndex}`} className="bg-card p-1 min-h-[50px] sm:min-h-[60px] lg:min-h-[80px] relative">
                                 {dayBookings.length > 0 ? (
-                                  <div className="space-y-1">
+                                  <div className="space-y-0.5 sm:space-y-1">
                                     {dayBookings.map((booking, bookingIndex) => (
                                       <div
                                         key={bookingIndex}

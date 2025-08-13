@@ -189,9 +189,9 @@
   /* Meeting block styles */
   .meeting-block {
     @apply rounded-sm text-white font-medium transition-all duration-200 hover:shadow-lg;
-    font-size: 0.55rem;
-    line-height: 1.1;
-    padding: 0.25rem;
+    font-size: 0.45rem;
+    line-height: 1.0;
+    padding: 0.15rem;
   }
 
   .meeting-block-team-ux {
@@ -211,37 +211,46 @@
   }
 
   /* Responsive text sizing for meeting blocks */
+  @media (min-width: 400px) {
+    .meeting-block {
+      font-size: 0.5rem;
+      padding: 0.2rem;
+    }
+  }
+
   @media (min-width: 480px) {
     .meeting-block {
-      font-size: 0.6rem;
-      padding: 0.3rem;
+      font-size: 0.55rem;
+      padding: 0.25rem;
     }
   }
 
   @media (min-width: 640px) {
     .meeting-block {
-      font-size: 0.65rem;
-      padding: 0.35rem;
+      font-size: 0.6rem;
+      padding: 0.3rem;
+      line-height: 1.1;
     }
   }
 
   @media (min-width: 768px) {
+    .meeting-block {
+      font-size: 0.65rem;
+      padding: 0.35rem;
+      line-height: 1.2;
+    }
+  }
+
+  @media (min-width: 1024px) {
     .meeting-block {
       font-size: 0.7rem;
       padding: 0.4rem;
     }
   }
 
-  @media (min-width: 1024px) {
-    .meeting-block {
-      font-size: 0.75rem;
-      padding: 0.5rem;
-    }
-  }
-
   @media (min-width: 1280px) {
     .meeting-block {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       padding: 0.5rem;
     }
   }
@@ -252,18 +261,31 @@
   }
 
   .meeting-team {
-    @apply font-semibold leading-tight;
+    @apply font-semibold leading-none;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    margin-bottom: 0.1rem;
   }
 
   .meeting-time {
-    @apply opacity-90 leading-tight;
+    @apply opacity-90 leading-none;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    font-size: 0.9em;
+  }
+
+  /* Mobile-specific adjustments */
+  @media (max-width: 639px) {
+    .meeting-team {
+      margin-bottom: 0.05rem;
+    }
+    
+    .meeting-time {
+      font-size: 0.85em;
+    }
   }
 }
