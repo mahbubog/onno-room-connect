@@ -46,113 +46,76 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-subtle flex items-center justify-center p-4">
-      <div className="w-full max-w-md space-y-6">
-        {/* Header */}
-        <div className="text-center space-y-2">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <Building2 className="h-8 w-8 text-primary" />
-            <h1 className="text-2xl font-bold text-foreground">OnnoRokom</h1>
-          </div>
-          <h2 className="text-xl font-semibold text-foreground">Meeting Booking System</h2>
-          <p className="text-muted-foreground">Sign in to manage your meetings</p>
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <div className="w-full max-w-md space-y-8">
+        {/* Logo */}
+        <div className="text-center">
+          <img 
+            src="/lovable-uploads/fa903b58-92ad-41fc-8e78-58c330f74c7a.png" 
+            alt="OnnoRokom Logo" 
+            className="mx-auto mb-6 h-24 w-auto"
+          />
+          <h2 className="text-xl text-primary font-medium">Meeting Room Booking System</h2>
         </div>
 
         {/* Login Card */}
-        <Card className="shadow-elegant border-0">
-          <CardHeader>
-            <CardTitle className="text-center">Welcome Back</CardTitle>
-            <CardDescription className="text-center">
-              Enter your credentials to access the system
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+        <Card className="shadow-card border">
+          <CardContent className="pt-8 pb-8 px-8">
+            <div className="text-center mb-6">
+              <h1 className="text-2xl font-semibold text-foreground mb-2">Log in</h1>
+              <p className="text-muted-foreground">Welcome! Please enter your details.</p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-2">
-                <Label htmlFor="pin" className="flex items-center space-x-2">
-                  <User className="h-4 w-4" />
-                  <span>PIN</span>
+                <Label htmlFor="pin" className="text-sm font-medium text-foreground">
+                  PIN
                 </Label>
                 <Input
                   id="pin"
                   type="text"
-                  placeholder="Enter your PIN"
+                  placeholder="Enter PIN"
                   value={pin}
                   onChange={(e) => setPin(e.target.value)}
                   required
-                  className="transition-all duration-300 focus:shadow-glow"
+                  className="h-11"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password" className="flex items-center space-x-2">
-                  <Lock className="h-4 w-4" />
-                  <span>Password</span>
+                <Label htmlFor="password" className="text-sm font-medium text-foreground">
+                  Password
                 </Label>
                 <Input
                   id="password"
                   type="password"
-                  placeholder="Enter your password"
+                  placeholder="Enter Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="transition-all duration-300 focus:shadow-glow"
+                  className="h-11"
                 />
               </div>
 
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="remember"
-                    checked={rememberMe}
-                    onCheckedChange={(checked) => setRememberMe(checked as boolean)}
-                  />
-                  <Label htmlFor="remember" className="text-sm">Remember me</Label>
-                </div>
-                <Link
-                  to="/forgot-password"
-                  className="text-sm text-primary hover:text-primary-hover transition-colors"
-                >
-                  Forgot password?
-                </Link>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="remember"
+                  checked={rememberMe}
+                  onCheckedChange={(checked) => setRememberMe(checked as boolean)}
+                />
+                <Label htmlFor="remember" className="text-sm text-muted-foreground">
+                  Remember Password
+                </Label>
               </div>
 
               <Button
                 type="submit"
-                className="w-full"
-                size="lg"
+                className="w-full h-11 bg-primary hover:bg-primary-hover text-primary-foreground font-medium"
                 disabled={isLoading}
-                variant="hero"
               >
-                {isLoading ? "Signing in..." : "Sign In"}
+                {isLoading ? "Signing in..." : "Log in"}
               </Button>
             </form>
-
-            <div className="mt-6 text-center">
-              <p className="text-sm text-muted-foreground">
-                Don't have an account?{" "}
-                <Link
-                  to="/register"
-                  className="text-primary hover:text-primary-hover font-medium transition-colors"
-                >
-                  Register here
-                </Link>
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Demo Credentials */}
-        <Card className="bg-muted/50 border-dashed">
-          <CardContent className="pt-6">
-            <div className="flex items-start space-x-2">
-              <AlertCircle className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-              <div className="text-sm">
-                <p className="font-medium text-foreground mb-1">Demo Credentials:</p>
-                <p className="text-muted-foreground">User: Any PIN + Password</p>
-                <p className="text-muted-foreground">Admin: PIN "admin" + Password "123456"</p>
-              </div>
-            </div>
           </CardContent>
         </Card>
       </div>
