@@ -17,10 +17,61 @@ const UserDashboard = () => {
   });
 
   const rooms = [
-    { id: 1, name: "Conference Room A", capacity: 10 },
-    { id: 2, name: "Meeting Room B", capacity: 6 },
-    { id: 3, name: "Board Room", capacity: 12 },
-    { id: 4, name: "Video Call Room", capacity: 4 },
+    { id: 1, name: "Meeting Room 1", capacity: 10 },
+    { id: 2, name: "Meeting Room 2", capacity: 6 },
+    { id: 3, name: "Meeting Room 3", capacity: 12 },
+    { id: 4, name: "Meeting Room 4", capacity: 4 },
+    { id: 5, name: "Meeting Room 5", capacity: 8 },
+    { id: 6, name: "Meeting Room 6", capacity: 6 },
+    { id: 7, name: "Meeting Room 7", capacity: 10 },
+  ];
+
+  // Get current week dates
+  const getWeekDates = () => {
+    const today = new Date(selectedDate);
+    const currentDay = today.getDay();
+    const startOfWeek = new Date(today);
+    startOfWeek.setDate(today.getDate() - currentDay);
+    
+    return Array.from({ length: 7 }, (_, i) => {
+      const date = new Date(startOfWeek);
+      date.setDate(startOfWeek.getDate() + i);
+      return date;
+    });
+  };
+
+  const weekDates = getWeekDates();
+
+  // Weekly bookings data
+  const weeklyBookings = [
+    { roomId: 1, day: 0, team: "Team Work: UX/UI", time: "9:30 AM - 11:30 AM", color: "bg-green-500" },
+    { roomId: 1, day: 1, team: "Team Work: UX/UI", time: "9:30 AM - 11:30 AM", color: "bg-green-500" },
+    { roomId: 1, day: 4, team: "Team Work: UX/UI", time: "9:30 AM - 11:30 AM", color: "bg-green-500" },
+    
+    { roomId: 2, day: 0, team: "Team Work: MVP", time: "9:30 AM - 11:30 AM", color: "bg-orange-500" },
+    { roomId: 2, day: 1, team: "Team Work: MVP", time: "9:30 AM - 11:30 AM", color: "bg-orange-500" },
+    { roomId: 2, day: 5, team: "Team Work: MVP", time: "9:30 AM - 11:30 AM", color: "bg-orange-500" },
+    
+    { roomId: 3, day: 0, team: "Team Work: UX/UI", time: "10:30 AM - 11:30 AM", color: "bg-purple-500" },
+    { roomId: 3, day: 2, team: "Team Work: UX/UI", time: "10:30 AM - 11:30 AM", color: "bg-purple-500" },
+    { roomId: 3, day: 4, team: "Team Work: UX/UI", time: "10:30 AM - 11:30 AM", color: "bg-purple-500" },
+    { roomId: 3, day: 0, team: "Team Work: Marketing", time: "10:30 AM - 11:30 AM", color: "bg-purple-600", offset: true },
+    { roomId: 3, day: 2, team: "Team Work: Marketing", time: "10:30 AM - 11:30 AM", color: "bg-purple-600", offset: true },
+    { roomId: 3, day: 4, team: "Team Work: Marketing", time: "10:30 AM - 11:30 AM", color: "bg-purple-600", offset: true },
+    
+    { roomId: 4, day: 1, team: "Team Work: MVP", time: "9:30 AM - 11:30 AM", color: "bg-blue-500" },
+    
+    { roomId: 5, day: 0, team: "Team Work: UX/UI", time: "10:30 AM - 11:30 AM", color: "bg-teal-500" },
+    { roomId: 5, day: 4, team: "Team Work: UX/UI", time: "10:30 AM - 11:30 AM", color: "bg-teal-500" },
+    { roomId: 5, day: 6, team: "Team Work: UX/UI", time: "10:30 AM - 11:30 AM", color: "bg-teal-600" },
+    { roomId: 5, day: 0, team: "Team Work: Marketing", time: "10:30 AM - 11:30 AM", color: "bg-teal-600", offset: true },
+    { roomId: 5, day: 4, team: "Team Work: Marketing", time: "10:30 AM - 11:30 AM", color: "bg-teal-600", offset: true },
+    { roomId: 5, day: 6, team: "Team Work: Marketing", time: "10:30 AM - 11:30 AM", color: "bg-teal-700", offset: true },
+    
+    { roomId: 6, day: 5, team: "Team Work: MVP", time: "9:30 AM - 11:30 AM", color: "bg-orange-500" },
+    
+    { roomId: 7, day: 1, team: "Team Work: MVP", time: "9:30 AM - 11:30 AM", color: "bg-green-600" },
+    { roomId: 7, day: 6, team: "Team Work: MVP", time: "9:30 AM - 11:30 AM", color: "bg-green-600" },
   ];
 
   const bookings = [
@@ -219,15 +270,115 @@ const UserDashboard = () => {
           {viewType === "weekly" && (
             <Card className="shadow-card">
               <CardHeader>
-                <CardTitle>Weekly Schedule</CardTitle>
-                <CardDescription>
-                  Week view of all meeting rooms
-                </CardDescription>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle>Weekly Schedule</CardTitle>
+                    <CardDescription>
+                      {weekDates[0].toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} - {weekDates[6].toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </CardDescription>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        const newDate = new Date(selectedDate);
+                        newDate.setDate(newDate.getDate() - 7);
+                        setSelectedDate(newDate);
+                      }}
+                    >
+                      ←
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        const newDate = new Date(selectedDate);
+                        newDate.setDate(newDate.getDate() + 7);
+                        setSelectedDate(newDate);
+                      }}
+                    >
+                      →
+                    </Button>
+                  </div>
+                </div>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-12">
-                  <Calendar className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <p className="text-muted-foreground">Weekly view coming soon...</p>
+                <div className="overflow-x-auto">
+                  <div className="min-w-[1000px]">
+                    {/* Header with days */}
+                    <div className="grid grid-cols-8 gap-px bg-border">
+                      <div className="bg-card p-3 font-medium"></div>
+                      {weekDates.map((date, index) => (
+                        <div key={index} className="bg-card p-3 text-center">
+                          <div className="font-medium text-sm">
+                            {date.toLocaleDateString('en-US', { weekday: 'short' })}
+                          </div>
+                          <div className="text-lg font-bold">
+                            {date.getDate()}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Room rows */}
+                    <div className="grid grid-cols-8 gap-px bg-border">
+                      {rooms.map((room) => (
+                        <>
+                          {/* Room name column */}
+                          <div key={`room-${room.id}`} className="bg-card p-4 flex items-center">
+                            <div className="flex items-center space-x-2">
+                              <div className={`w-3 h-3 rounded-full ${
+                                room.id === 1 ? 'bg-green-500' :
+                                room.id === 2 ? 'bg-orange-500' :
+                                room.id === 3 ? 'bg-purple-500' :
+                                room.id === 4 ? 'bg-blue-500' :
+                                room.id === 5 ? 'bg-teal-500' :
+                                room.id === 6 ? 'bg-orange-600' :
+                                'bg-green-600'
+                              }`}></div>
+                              <span className="font-medium text-sm">{room.name}</span>
+                            </div>
+                          </div>
+                          
+                          {/* Day columns for this room */}
+                          {weekDates.map((date, dayIndex) => {
+                            const dayBookings = weeklyBookings.filter(
+                              booking => booking.roomId === room.id && booking.day === dayIndex
+                            );
+                            
+                            return (
+                              <div key={`${room.id}-${dayIndex}`} className="bg-card p-2 min-h-[80px] relative">
+                                {dayBookings.length > 0 ? (
+                                  <div className="space-y-1">
+                                    {dayBookings.map((booking, bookingIndex) => (
+                                      <div
+                                        key={bookingIndex}
+                                        className={`${booking.color} text-white text-xs p-2 rounded shadow-sm ${
+                                          booking.offset ? 'mt-1' : ''
+                                        }`}
+                                      >
+                                        <div className="font-medium">{booking.team}</div>
+                                        <div className="text-xs opacity-90">{booking.time}</div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                ) : (
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="w-full h-full flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-accent/50"
+                                  >
+                                    <Plus className="h-4 w-4" />
+                                  </Button>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
