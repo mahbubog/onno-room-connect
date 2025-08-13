@@ -292,21 +292,23 @@ const UserDashboard = () => {
                             return (
                               <div key={`${room.id}-${timeIndex}`} className="bg-card p-1 sm:p-2 min-h-[60px] sm:min-h-[80px] relative">
                                 {hasBooking ? (
-                                  <div className={`meeting-block p-2 h-full flex flex-col justify-center ${
+                                  <div className={`meeting-block h-full ${
                                     room.id === 1 ? 'meeting-block-team-ux' :
                                     room.id === 2 ? 'meeting-block-team-mvp' :
                                     'meeting-block-team-marketing'
                                   }`}>
-                                    <div className="font-medium text-xs">Team Work: {
-                                      room.id === 1 ? 'UX/UI' :
-                                      room.id === 2 ? 'MVP' :
-                                      'UX/UI'
-                                    }</div>
-                                    <div className="text-xs opacity-90">{
-                                      timeIndex === 0 ? '9:00 AM - 10:00 AM' :
-                                      timeIndex === 1 ? '9:00 AM - 10:00 AM' :
-                                      '10:00 AM - 11:00 AM'
-                                    }</div>
+                                    <div className="meeting-info">
+                                      <div className="meeting-team">Team Work: {
+                                        room.id === 1 ? 'UX/UI' :
+                                        room.id === 2 ? 'MVP' :
+                                        'UX/UI'
+                                      }</div>
+                                      <div className="meeting-time">{
+                                        timeIndex === 0 ? '9:00 AM - 10:00 AM' :
+                                        timeIndex === 1 ? '9:00 AM - 10:00 AM' :
+                                        '10:00 AM - 11:00 AM'
+                                      }</div>
+                                    </div>
                                   </div>
                                 ) : (
                                   <Button
@@ -418,15 +420,17 @@ const UserDashboard = () => {
                                     {dayBookings.map((booking, bookingIndex) => (
                                       <div
                                         key={bookingIndex}
-                                        className={`meeting-block p-1 sm:p-2 rounded shadow-sm ${
+                                        className={`meeting-block rounded shadow-sm ${
                                           booking.team.includes('UX/UI') ? 'meeting-block-team-ux' :
                                           booking.team.includes('MVP') ? 'meeting-block-team-mvp' :
                                           booking.team.includes('Marketing') ? 'meeting-block-team-marketing' :
                                           'meeting-block-team-other'
                                         } ${booking.offset ? 'mt-1' : ''}`}
                                       >
-                                        <div className="font-medium">{booking.team}</div>
-                                        <div className="opacity-90">{booking.time}</div>
+                                        <div className="meeting-info">
+                                          <div className="meeting-team">{booking.team}</div>
+                                          <div className="meeting-time">{booking.time}</div>
+                                        </div>
                                       </div>
                                     ))}
                                   </div>

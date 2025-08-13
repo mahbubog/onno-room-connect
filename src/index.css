@@ -189,8 +189,9 @@
   /* Meeting block styles */
   .meeting-block {
     @apply rounded-sm text-white font-medium transition-all duration-200 hover:shadow-lg;
-    font-size: 0.7rem;
-    line-height: 1.2;
+    font-size: 0.55rem;
+    line-height: 1.1;
+    padding: 0.25rem;
   }
 
   .meeting-block-team-ux {
@@ -209,15 +210,60 @@
     background: hsl(198 93% 60%);
   }
 
+  /* Responsive text sizing for meeting blocks */
+  @media (min-width: 480px) {
+    .meeting-block {
+      font-size: 0.6rem;
+      padding: 0.3rem;
+    }
+  }
+
   @media (min-width: 640px) {
     .meeting-block {
-      font-size: 0.75rem;
+      font-size: 0.65rem;
+      padding: 0.35rem;
     }
   }
 
   @media (min-width: 768px) {
     .meeting-block {
-      font-size: 0.8rem;
+      font-size: 0.7rem;
+      padding: 0.4rem;
     }
+  }
+
+  @media (min-width: 1024px) {
+    .meeting-block {
+      font-size: 0.75rem;
+      padding: 0.5rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .meeting-block {
+      font-size: 0.8rem;
+      padding: 0.5rem;
+    }
+  }
+
+  /* Two-line layout for meeting info */
+  .meeting-info {
+    @apply flex flex-col justify-center h-full;
+  }
+
+  .meeting-team {
+    @apply font-semibold leading-tight;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .meeting-time {
+    @apply opacity-90 leading-tight;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
