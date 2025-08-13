@@ -26,11 +26,15 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					hover: 'hsl(var(--primary-hover))',
+					light: 'hsl(var(--primary-light))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
+					foreground: 'hsl(var(--secondary-foreground))',
+					hover: 'hsl(var(--secondary-hover))',
+					light: 'hsl(var(--secondary-light))'
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
@@ -52,6 +56,27 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				// Booking Status Colors
+				available: {
+					DEFAULT: 'hsl(var(--available))',
+					foreground: 'hsl(var(--available-foreground))',
+					light: 'hsl(var(--available-light))'
+				},
+				booked: {
+					DEFAULT: 'hsl(var(--booked))',
+					foreground: 'hsl(var(--booked-foreground))',
+					light: 'hsl(var(--booked-light))'
+				},
+				pending: {
+					DEFAULT: 'hsl(var(--pending))',
+					foreground: 'hsl(var(--pending-foreground))',
+					light: 'hsl(var(--pending-light))'
+				},
+				past: {
+					DEFAULT: 'hsl(var(--past))',
+					foreground: 'hsl(var(--past-foreground))',
+					light: 'hsl(var(--past-light))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -62,6 +87,16 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				}
+			},
+			backgroundImage: {
+				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-subtle': 'var(--gradient-subtle)',
+				'gradient-hero': 'var(--gradient-hero)'
+			},
+			boxShadow: {
+				'elegant': 'var(--shadow-elegant)',
+				'card': 'var(--shadow-card)',
+				'glow': 'var(--shadow-glow)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +119,25 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'slide-in': {
+					from: { opacity: '0', transform: 'translateY(20px)' },
+					to: { opacity: '1', transform: 'translateY(0)' }
+				},
+				'fade-in': {
+					from: { opacity: '0' },
+					to: { opacity: '1' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'slide-in': 'slide-in 0.4s ease-out',
+				'fade-in': 'fade-in 0.3s ease-out'
+			},
+			transitionProperty: {
+				'smooth': 'var(--transition-smooth)',
+				'spring': 'var(--transition-spring)'
 			}
 		}
 	},
