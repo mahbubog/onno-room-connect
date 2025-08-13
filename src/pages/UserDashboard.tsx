@@ -8,13 +8,20 @@ import { Badge } from "@/components/ui/badge";
 const UserDashboard = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [viewType, setViewType] = useState("daily");
+  const [dailyTimeStart, setDailyTimeStart] = useState(9); // Starting hour for daily view
 
-  // Mock data for demonstration
-  const timeSlots = Array.from({ length: 18 }, (_, i) => {
-    const hour = Math.floor(i / 2) + 9;
-    const minute = (i % 2) * 30;
-    return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-  });
+  // Generate 6-hour time slots for daily view
+  const getDailyTimeSlots = () => {
+    return Array.from({ length: 6 }, (_, i) => {
+      const hour = dailyTimeStart + i;
+      const displayHour = hour > 12 ? hour - 12 : hour;
+      const period = hour >= 12 ? 'PM' : 'AM';
+      const finalHour = displayHour === 0 ? 12 : displayHour;
+      return `${finalHour} ${period}`;
+    });
+  };
+
+  const dailyTimeSlots = getDailyTimeSlots();
 
   const rooms = [
     { id: 1, name: "Meeting Room 1", capacity: 10 },
@@ -246,20 +253,40 @@ const UserDashboard = () => {
                       })}
                     </CardDescription>
                   </div>
-                  <Button variant="default" size="sm" className="flex items-center space-x-2 text-xs sm:text-sm">
-                    <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
-                    <span className="hidden sm:inline">New Booking</span>
-                    <span className="sm:hidden">Add</span>
-                  </Button>
+                  <div className="flex items-center space-x-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setDailyTimeStart(Math.max(6, dailyTimeStart - 6))}
+                      disabled={dailyTimeStart <= 6}
+                      className="text-xs sm:text-sm"
+                    >
+                      ←
+                    </Button>
+                    <Button variant="default" size="sm" className="flex items-center space-x-2 text-xs sm:text-sm">
+                      <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
+                      <span className="hidden sm:inline">New Booking</span>
+                      <span className="sm:hidden">Add</span>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setDailyTimeStart(Math.min(18, dailyTimeStart + 6))}
+                      disabled={dailyTimeStart >= 18}
+                      className="text-xs sm:text-sm"
+                    >
+                      →
+                    </Button>
+                  </div>
                 </div>
               </CardHeader>
               <CardContent className="p-0">
                 <div className="overflow-x-auto">
                   <div className="min-w-[800px]">
                     {/* Time Header */}
-                    <div className="grid grid-cols-8 gap-px bg-border">
+                    <div className="grid grid-cols-7 gap-px bg-border">
                       <div className="bg-card"></div>
-                      {["9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM"].map((time, index) => (
+                      {dailyTimeSlots.map((time, index) => (
                         <div key={index} className="bg-card p-2 sm:p-3 text-center">
                           <div className="font-medium text-xs sm:text-sm">{time}</div>
                         </div>
@@ -267,7 +294,7 @@ const UserDashboard = () => {
                     </div>
 
                     {/* Room Rows */}
-                    <div className="grid grid-cols-8 gap-px bg-border">
+                    <div className="grid grid-cols-7 gap-px bg-border">
                       {rooms.map((room) => (
                         <>
                           {/* Room Name */}
@@ -287,8 +314,9 @@ const UserDashboard = () => {
                           </div>
                           
                           {/* Time Slots */}
-                          {Array.from({ length: 7 }, (_, timeIndex) => {
-                            const hasBooking = room.id <= 3 && timeIndex < 3;
+                          {Array.from({ length: 6 }, (_, timeIndex) => {
+                            const currentHour = dailyTimeStart + timeIndex;
+                            const hasBooking = room.id <= 3 && timeIndex < 3 && currentHour >= 9 && currentHour <= 11;
                             return (
                               <div key={`${room.id}-${timeIndex}`} className="bg-card p-1 min-h-[50px] sm:min-h-[60px] lg:min-h-[80px] relative">
                                 {hasBooking ? (
@@ -304,9 +332,10 @@ const UserDashboard = () => {
                                         'UX/UI'
                                       }</div>
                                       <div className="meeting-time">{
-                                        timeIndex === 0 ? '9:00 AM - 10:00 AM' :
-                                        timeIndex === 1 ? '9:00 AM - 10:00 AM' :
-                                        '10:00 AM - 11:00 AM'
+                                        currentHour === 9 ? '9:00 AM - 10:00 AM' :
+                                        currentHour === 10 ? '10:00 AM - 11:00 AM' :
+                                        currentHour === 11 ? '11:00 AM - 12:00 PM' :
+                                        `${currentHour > 12 ? currentHour - 12 : currentHour}:00 ${currentHour >= 12 ? 'PM' : 'AM'} - ${currentHour + 1 > 12 ? currentHour + 1 - 12 : currentHour + 1}:00 ${currentHour + 1 >= 12 ? 'PM' : 'AM'}`
                                       }</div>
                                     </div>
                                   </div>
