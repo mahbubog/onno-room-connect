@@ -47,19 +47,9 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <div className="w-full max-w-md space-y-8">
-        {/* Logo */}
-        <div className="text-center">
-          <img 
-            src="/lovable-uploads/fa903b58-92ad-41fc-8e78-58c330f74c7a.png" 
-            alt="OnnoRokom Logo" 
-            className="mx-auto mb-6 h-24 w-auto"
-          />
-          <h2 className="text-xl text-primary font-medium">Meeting Room Booking System</h2>
-        </div>
-
+      <div className="w-full max-w-md">
         {/* Login Card */}
-        <Card className="shadow-card border">
+        <Card className="shadow-lg border border-border">
           <CardContent className="pt-8 pb-8 px-8">
             <div className="text-center mb-6">
               <h1 className="text-2xl font-semibold text-foreground mb-2">Log in</h1>
