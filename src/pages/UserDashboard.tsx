@@ -263,11 +263,6 @@ const UserDashboard = () => {
                     >
                       ←
                     </Button>
-                    <Button variant="default" size="sm" className="flex items-center space-x-2 text-xs sm:text-sm">
-                      <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
-                      <span className="hidden sm:inline">New Booking</span>
-                      <span className="sm:hidden">Add</span>
-                    </Button>
                     <Button
                       variant="outline"
                       size="sm"
