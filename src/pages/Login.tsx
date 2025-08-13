@@ -83,9 +83,17 @@ const Login = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-sm font-medium text-foreground">
-                  Password
-                </Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="password" className="text-sm font-medium text-foreground">
+                    Password
+                  </Label>
+                  <Link
+                    to="/forgot-password"
+                    className="text-sm text-primary hover:text-primary-hover font-medium"
+                  >
+                    Forgot Password?
+                  </Link>
+                </div>
                 <Input
                   id="password"
                   type="password"
@@ -116,6 +124,18 @@ const Login = () => {
                 {isLoading ? "Signing in..." : "Log in"}
               </Button>
             </form>
+
+            <div className="mt-6 text-center">
+              <p className="text-sm text-muted-foreground">
+                Don't have an account?{" "}
+                <Link
+                  to="/register"
+                  className="text-primary hover:text-primary-hover font-medium"
+                >
+                  Register here
+                </Link>
+              </p>
+            </div>
           </CardContent>
         </Card>
       </div>

@@ -103,22 +103,17 @@ const Register = () => {
       <div className="w-full max-w-2xl space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
-          <div className="flex items-center justify-center space-x-2 mb-4">
+          <div className="flex items-center justify-center space-x-2 mb-2">
             <Building2 className="h-8 w-8 text-primary" />
             <h1 className="text-2xl font-bold text-foreground">OnnoRokom</h1>
           </div>
-          <h2 className="text-xl font-semibold text-foreground">Create Account</h2>
-          <p className="text-muted-foreground">Join the meeting booking system</p>
+          <p className="text-lg text-foreground mb-6">Meeting Room Booking System</p>
+          <h2 className="text-2xl font-bold text-foreground">Register</h2>
+          <p className="text-sm text-muted-foreground">Create your account to start booking meetings</p>
         </div>
 
         {/* Registration Card */}
         <Card className="shadow-elegant border-0">
-          <CardHeader>
-            <CardTitle className="text-center">Register</CardTitle>
-            <CardDescription className="text-center">
-              Create your account to start booking meetings
-            </CardDescription>
-          </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -141,7 +136,7 @@ const Register = () => {
                 <div className="space-y-2">
                   <Label htmlFor="pin" className="flex items-center space-x-2">
                     <Lock className="h-4 w-4" />
-                    <span>PIN (1-9 digits)</span>
+                    <span>PIN</span>
                   </Label>
                   <Input
                     id="pin"
